@@ -8,10 +8,10 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 ## Flujo Público
 
 ### Landing Page
-- [ ] **US-01** — Como visitante, puedo ver la landing page con el hero visual (imágenes con gradiente cuando no hay fotos en Storage)
-- [ ] **US-02** — Como visitante, puedo ver la sección de propiedades destacadas con tarjetas que muestran precio, ubicación, tipo y m²
-- [ ] **US-03** — Como visitante, puedo ver la sección de actividades (senderismo, piscina, etc.) debajo de las destacadas
-- [ ] **US-04** — Como visitante, el navbar tiene el buscador sticky visible al hacer scroll
+- [x] **US-01** — Como visitante, puedo ver la landing page con el hero visual (imágenes con gradiente cuando no hay fotos en Storage)
+- [x] **US-02** — Como visitante, puedo ver la sección de propiedades destacadas con tarjetas que muestran precio, ubicación, tipo y m²
+- [x] **US-03** — Como visitante, puedo ver la sección de actividades (senderismo, piscina, etc.) debajo de las destacadas
+- [x] **US-04** — Como visitante, el navbar tiene el buscador sticky visible al hacer scroll
 
 ### Búsqueda
 - [ ] **US-05** — Como visitante, puedo escribir en el buscador del navbar y ver sugerencias de autocompletado (municipios)
@@ -130,11 +130,11 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 
 | Categoría | Total | Completadas |
 |-----------|-------|-------------|
-| Flujo Público | 23 | — |
+| Flujo Público | 23 | 4 |
 | Autenticación | 11 | — |
 | Panel Empresa | 14 | — |
 | Panel Admin | 24 | — |
 | Seguridad | 5 | — |
-| **TOTAL** | **77** | **0 / 77** |
+| **TOTAL** | **77** | **4 / 77** |
 
 > Actualizar el conteo manualmente o usar `grep -c '\- \[x\]' HISTORIAS_USUARIO.md` para contar las completadas.
