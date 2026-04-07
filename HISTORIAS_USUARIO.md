@@ -98,6 +98,8 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 - [ ] **US-59** — Como admin, puedo crear una nueva actividad con nombre y tipo (interna/entorno)
 - [ ] **US-60** — Como admin, puedo activar/desactivar una actividad con un toggle
 - [ ] **US-61** — Como admin, puedo marcar una actividad para mostrar en landing y asignarle un orden
+- [ ] **US-69** — Como admin, puedo subir o cambiar la imagen de una actividad desde la tabla (drag o clic); veo un preview en miniatura
+- [ ] **US-70** — Como visitante, las actividades del landing muestran la imagen subida por el admin; si no tiene imagen se muestra un gradiente de color
 
 ### Gestión de Hero Images
 - [ ] **US-62** — Como admin, en `/admin/hero` veo las imágenes actuales del hero con preview
@@ -105,6 +107,8 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 - [ ] **US-64** — Como admin, puedo asociar una imagen hero con una actividad (para el filtro clickable del landing)
 - [ ] **US-65** — Como admin, puedo activar/desactivar imágenes del hero
 - [ ] **US-66** — El sistema no permite más de 2 imágenes activas en el hero (restricción de DB)
+- [ ] **US-71** — Como admin, al eliminar una imagen hero el archivo se borra también del Storage (sin archivos huérfanos)
+- [ ] **US-72** — Como admin, si intento subir una imagen mayor a 5 MB recibo un error descriptivo antes de que se intente el upload
 
 ### Gestión de Tipos y Geografía
 - [ ] **US-67** — Como admin, en `/admin/tipos` puedo crear nuevos tipos de inmueble y activar/desactivar existentes
@@ -129,8 +133,8 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 | Flujo Público | 23 | — |
 | Autenticación | 11 | — |
 | Panel Empresa | 14 | — |
-| Panel Admin | 20 | — |
+| Panel Admin | 24 | — |
 | Seguridad | 5 | — |
-| **TOTAL** | **73** | **0 / 73** |
+| **TOTAL** | **77** | **0 / 77** |
 
 > Actualizar el conteo manualmente o usar `grep -c '\- \[x\]' HISTORIAS_USUARIO.md` para contar las completadas.
