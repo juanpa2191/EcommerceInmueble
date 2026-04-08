@@ -581,28 +581,23 @@ export function WizardNuevoInmueble({
               {/* Tipo de inmueble */}
               <div className="space-y-1.5">
                 <Label htmlFor="tipo_inmueble_id">Tipo de inmueble</Label>
-                <Select
+                <select
+                  id="tipo_inmueble_id"
                   value={tipoId}
-                  onValueChange={(v) => { if (v) setValue('tipo_inmueble_id', v) }}
                   disabled={isEditMode}
+                  onChange={(e) => { if (e.target.value) setValue('tipo_inmueble_id', e.target.value, { shouldValidate: true }) }}
+                  className={cn(
+                    'w-full rounded-lg border px-3 py-2 text-sm text-[#2B2B2B] bg-white focus:outline-none focus:ring-2 focus:ring-[#1F3A5F]/30 disabled:opacity-50',
+                    errors.tipo_inmueble_id ? 'border-red-500' : 'border-[#D9D9D9]'
+                  )}
                 >
-                  <SelectTrigger
-                    className={cn(
-                      'w-full',
-                      errors.tipo_inmueble_id && 'border-red-500'
-                    )}
-                    aria-invalid={!!errors.tipo_inmueble_id}
-                  >
-                    <SelectValue placeholder="Selecciona un tipo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {tipos.map((t) => (
-                      <SelectItem key={t.id} value={t.id}>
-                        {t.nombre}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  <option value="">Selecciona un tipo</option>
+                  {tipos.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.nombre}
+                    </option>
+                  ))}
+                </select>
                 <FieldError message={errors.tipo_inmueble_id?.message} />
               </div>
 

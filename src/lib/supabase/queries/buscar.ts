@@ -101,9 +101,20 @@ export async function buscarPredios(filtros: FiltroBusqueda): Promise<ResultadoB
     query = query.lte('metros_cuadrados', filtros.metrosMax)
   }
 
-  // Búsqueda por texto en municipio (ilike)
-  if (filtros.q) {
-    query = query.ilike('municipios.nombre', `%${filtros.q}%`)
+  // Búsqueda por texto: solo si no hay municipioId exacto (UUID del autocomplete)
+  if (filtros.q && !filtros.municipioId) {
+    const { data: municipiosMatch } = await supabase
+      .from('municipios')
+      .select('id')
+      .ilike('nombre', `%${filtros.q}%`)
+
+    const municipioIds = (municipiosMatch ?? []).map((m: any) => m.id as string)
+
+    if (municipioIds.length === 0) {
+      return { predios: [], total: 0, filtrosDisponibles: EMPTY_FILTERS }
+    }
+
+    query = query.in('municipio_id', municipioIds)
   }
 
   const {
@@ -164,7 +175,7 @@ export async function buscarPredios(filtros: FiltroBusqueda): Promise<ResultadoB
 
   const filtrosDisponibles = calcularFiltrosDisponibles(predios, prediosRaw)
 
-  return { predios, total: count ?? 0, filtrosDisponibles }
+  return { predios, total: predios.length, filtrosDisponibles }
 }
 
 function calcularFiltrosDisponibles(

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Search, MapPin, Activity } from 'lucide-react'
 
 type Suggestion = {
@@ -12,12 +12,19 @@ type Suggestion = {
 }
 
 export function SearchBar() {
-  const [query, setQuery] = useState('')
+  const searchParams = useSearchParams()
+  const initialQ = searchParams.get('q') ?? ''
+  const [query, setQuery] = useState(initialQ)
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const router = useRouter()
+
+  // Sync query when URL changes (e.g. limpiar filtros)
+  useEffect(() => {
+    setQuery(searchParams.get('q') ?? '')
+  }, [searchParams])
 
   const fetchSuggestions = useCallback(async (q: string) => {
     if (q.length < 2) { setSuggestions([]); setOpen(false); return }
@@ -44,6 +51,8 @@ export function SearchBar() {
     setOpen(false)
     setQuery(suggestion.label)
     const params = new URLSearchParams()
+    // q lleva el label visible (para el buscador y el texto "X resultados para...")
+    params.set('q', suggestion.label)
     if (suggestion.type === 'municipio') params.set('municipio', suggestion.id)
     if (suggestion.type === 'actividad') params.set('actividad', suggestion.id)
     router.push(`/buscar?${params.toString()}`)

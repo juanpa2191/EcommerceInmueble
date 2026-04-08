@@ -14,6 +14,7 @@ export default async function BuscarPage({
   const params = await searchParams
 
   const filtros: FiltroBusqueda = {
+    municipioId: typeof params.municipio === 'string' ? params.municipio : undefined,
     q: typeof params.q === 'string' ? params.q : undefined,
     tipoInmuebleId:
       typeof params.tipoInmuebleId === 'string' ? params.tipoInmuebleId : undefined,

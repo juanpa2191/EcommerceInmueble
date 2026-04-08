@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import Image from 'next/image'
-import { getFullImageUrl } from '@/lib/utils/supabase-image'
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react'
 
 type Props = {
@@ -55,13 +53,11 @@ export function GaleriaFotos({ fotos, ofertaPrincipalId }: Props) {
         <div className="flex h-full">
           {fotos.map((foto, index) => (
             <div key={foto.imagen_url} className="flex-[0_0_100%] relative h-full">
-              <Image
-                src={getFullImageUrl(foto.imagen_url)}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={foto.imagen_url}
                 alt={`Foto ${index + 1}`}
-                fill
-                className="object-cover"
-                priority={index === 0}
-                sizes="100vw"
+                className="h-full w-full object-cover"
               />
             </div>
           ))}

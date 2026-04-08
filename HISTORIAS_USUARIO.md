@@ -17,24 +17,24 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 - [x] **US-05** — Como visitante, puedo escribir en el buscador del navbar y ver sugerencias de autocompletado (municipios)
 - [x] **US-06** — Como visitante, al seleccionar una sugerencia o buscar, soy redirigido a `/buscar` con los resultados
 - [x] **US-07** — Como visitante, en `/buscar` puedo filtrar por tipo de inmueble y ver solo ese tipo
-- [ ] **US-08** — Como visitante, puedo filtrar por precio con un range slider en COP (muestra valor mínimo y máximo en tiempo real)
-- [ ] **US-09** — Como visitante, puedo filtrar por superficie con un range slider en m² (muestra valor mínimo y máximo en tiempo real)
-- [ ] **US-10** — Como visitante, puedo seleccionar actividades como chips/tags para filtrar inmuebles que las tengan
-- [ ] **US-11** — Como visitante, los filtros son contextuales — solo aparecen actividades y tipos presentes en los resultados actuales
-- [ ] **US-12** — Como visitante, puedo limpiar todos los filtros con un botón y volver a ver todos los resultados
-- [ ] **US-13** — Como visitante en mobile, puedo abrir el panel de filtros desde un Sheet lateral
-- [ ] **US-14** — Como visitante, si no hay resultados veo un estado vacío descriptivo
+- [x] **US-08** — Como visitante, puedo filtrar por precio con un range slider en COP (muestra valor mínimo y máximo en tiempo real)
+- [x] **US-09** — Como visitante, puedo filtrar por superficie con un range slider en m² (muestra valor mínimo y máximo en tiempo real)
+- [x] **US-10** — Como visitante, puedo seleccionar actividades como chips/tags para filtrar inmuebles que las tengan
+- [x] **US-11** — Como visitante, los filtros son contextuales — solo aparecen actividades y tipos presentes en los resultados actuales
+- [x] **US-12** — Como visitante, puedo limpiar todos los filtros con un botón y volver a ver todos los resultados
+- [x] **US-13** — Como visitante en mobile, puedo abrir el panel de filtros desde un Sheet lateral
+- [x] **US-14** — Como visitante, si no hay resultados veo un estado vacío descriptivo
 
 ### Detalle de Inmueble
-- [ ] **US-15** — Como visitante, puedo hacer click en una tarjeta y ver el detalle del inmueble en `/inmueble/[matricula]`
-- [ ] **US-16** — Como visitante, veo la galería de fotos en un carrusel con indicadores (o placeholder si no hay fotos)
-- [ ] **US-17** — Como visitante, veo el tipo de inmueble, municipio, departamento y m²
-- [ ] **US-18** — Como visitante, veo las actividades disponibles del inmueble como chips
-- [ ] **US-19** — Como visitante, veo la descripción del inmueble
-- [ ] **US-20** — Como visitante, si hay **1 empresa** ofertando, veo el precio y un botón directo de WhatsApp con mensaje pre-cargado
-- [ ] **US-21** — Como visitante, si hay **múltiples empresas** ofertando el mismo inmueble, veo "Disponible con X empresas" y un botón "Ver todas las ofertas"
-- [ ] **US-22** — Como visitante, al abrir "Ver todas las ofertas" aparece un bottom sheet con precio, descripción y botón WhatsApp por cada empresa
-- [ ] **US-23** — Como visitante, al hacer click en WhatsApp se abre wa.me con mensaje pre-cargado que incluye tipo, municipio, m² y precio
+- [x] **US-15** — Como visitante, puedo hacer click en una tarjeta y ver el detalle del inmueble en `/inmueble/[matricula]`
+- [x] **US-16** — Como visitante, veo la galería de fotos en un carrusel con indicadores (o placeholder si no hay fotos)
+- [x] **US-17** — Como visitante, veo el tipo de inmueble, municipio, departamento y m²
+- [x] **US-18** — Como visitante, veo las actividades disponibles del inmueble como chips
+- [x] **US-19** — Como visitante, veo la descripción del inmueble
+- [x] **US-20** — Como visitante, si hay **1 empresa** ofertando, veo el precio y un botón directo de WhatsApp con mensaje pre-cargado
+- [x] **US-21** — Como visitante, si hay **múltiples empresas** ofertando el mismo inmueble, veo "Disponible con X empresas" y un botón "Ver todas las ofertas"
+- [x] **US-22** — Como visitante, al abrir "Ver todas las ofertas" aparece un bottom sheet con precio, descripción y botón WhatsApp por cada empresa
+- [x] **US-23** — Como visitante, al hacer click en WhatsApp se abre wa.me con mensaje pre-cargado que incluye tipo, municipio, m² y precio
 
 ---
 
@@ -130,11 +130,11 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 
 | Categoría | Total | Completadas |
 |-----------|-------|-------------|
-| Flujo Público | 23 | 4 |
+| Flujo Público | 23 | 23 |
 | Autenticación | 11 | — |
 | Panel Empresa | 14 | — |
 | Panel Admin | 24 | — |
 | Seguridad | 5 | — |
-| **TOTAL** | **77** | **4 / 77** |
+| **TOTAL** | **77** | **23 / 77** |
 
 > Actualizar el conteo manualmente o usar `grep -c '\- \[x\]' HISTORIAS_USUARIO.md` para contar las completadas.
