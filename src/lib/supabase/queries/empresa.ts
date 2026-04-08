@@ -102,6 +102,48 @@ export async function getDashboardMetricas(): Promise<DashboardMetricas> {
   }
 }
 
+export async function getMisOfertas(): Promise<OfertaResumen[]> {
+  const supabase = await createClient()
+
+  const { data: usuarioRaw } = await supabase
+    .from('usuarios')
+    .select('empresa_id')
+    .single()
+
+  const empresa_id = (usuarioRaw as { empresa_id: string | null } | null)?.empresa_id
+  if (!empresa_id) return []
+
+  const { data } = await supabase
+    .from('ofertas')
+    .select(`
+      id,
+      precio,
+      activo,
+      vistas,
+      clicks_whatsapp,
+      created_at,
+      predio:predios(
+        matricula,
+        municipio:municipios(nombre),
+        tipo_inmueble:tipos_inmueble(nombre)
+      )
+    `)
+    .eq('empresa_id', empresa_id)
+    .order('created_at', { ascending: false })
+
+  return ((data ?? []) as any[]).map((o) => ({
+    id: o.id,
+    matricula: o.predio?.matricula ?? '',
+    municipio_nombre: o.predio?.municipio?.nombre ?? '',
+    tipo_nombre: o.predio?.tipo_inmueble?.nombre ?? '',
+    precio: o.precio,
+    activo: o.activo,
+    vistas: o.vistas ?? 0,
+    clicks_whatsapp: o.clicks_whatsapp ?? 0,
+    created_at: o.created_at,
+  }))
+}
+
 export async function getOfertaParaEditar(ofertaId: string) {
   const supabase = await createClient()
 
