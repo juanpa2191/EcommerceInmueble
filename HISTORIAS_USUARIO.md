@@ -14,11 +14,11 @@ Marca cada historia con `[x]` al verificarla manualmente en el navegador.
 - [x] **US-04** — Como visitante, el navbar tiene el buscador sticky visible al hacer scroll
 
 ### Búsqueda
-- [ ] **US-05** — Como visitante, puedo escribir en el buscador del navbar y ver sugerencias de autocompletado (municipios)
-- [ ] **US-06** — Como visitante, al seleccionar una sugerencia o buscar, soy redirigido a `/buscar` con los resultados
-- [ ] **US-07** — Como visitante, en `/buscar` puedo filtrar por tipo de inmueble y ver solo ese tipo
-- [ ] **US-08** — Como visitante, puedo filtrar por precio mínimo y máximo en COP
-- [ ] **US-09** — Como visitante, puedo filtrar por rango de metros cuadrados
+- [x] **US-05** — Como visitante, puedo escribir en el buscador del navbar y ver sugerencias de autocompletado (municipios)
+- [x] **US-06** — Como visitante, al seleccionar una sugerencia o buscar, soy redirigido a `/buscar` con los resultados
+- [x] **US-07** — Como visitante, en `/buscar` puedo filtrar por tipo de inmueble y ver solo ese tipo
+- [ ] **US-08** — Como visitante, puedo filtrar por precio con un range slider en COP (muestra valor mínimo y máximo en tiempo real)
+- [ ] **US-09** — Como visitante, puedo filtrar por superficie con un range slider en m² (muestra valor mínimo y máximo en tiempo real)
 - [ ] **US-10** — Como visitante, puedo seleccionar actividades como chips/tags para filtrar inmuebles que las tengan
 - [ ] **US-11** — Como visitante, los filtros son contextuales — solo aparecen actividades y tipos presentes en los resultados actuales
 - [ ] **US-12** — Como visitante, puedo limpiar todos los filtros con un botón y volver a ver todos los resultados

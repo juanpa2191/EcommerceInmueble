@@ -1,8 +1,10 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import type { FiltrosDisponibles } from '@/lib/supabase/queries/buscar'
+import { Slider } from '@/components/ui/slider'
+import { formatPrecio, formatMetros } from '@/lib/utils/format'
 import { Search, X } from 'lucide-react'
 
 type Props = {
@@ -12,6 +14,11 @@ type Props = {
 export function FiltrosBusqueda({ filtrosDisponibles }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
+
+  const precioMin = filtrosDisponibles.precio_min
+  const precioMax = filtrosDisponibles.precio_max
+  const metrosMin = filtrosDisponibles.metros_min
+  const metrosMax = filtrosDisponibles.metros_max
 
   const buildUrl = useCallback(
     (overrides: Record<string, string | string[] | undefined>) => {
@@ -50,11 +57,32 @@ export function FiltrosBusqueda({ filtrosDisponibles }: Props) {
 
   const currentQ = searchParams.get('q') ?? ''
   const currentTipoId = searchParams.get('tipoInmuebleId') ?? ''
-  const currentPrecioMin = searchParams.get('precioMin') ?? ''
-  const currentPrecioMax = searchParams.get('precioMax') ?? ''
-  const currentMetrosMin = searchParams.get('metrosMin') ?? ''
-  const currentMetrosMax = searchParams.get('metrosMax') ?? ''
   const currentActividadIds = searchParams.getAll('actividadIds')
+
+  const initPrecio: [number, number] = [
+    searchParams.get('precioMin') ? Number(searchParams.get('precioMin')) : precioMin,
+    searchParams.get('precioMax') ? Number(searchParams.get('precioMax')) : precioMax,
+  ]
+  const initMetros: [number, number] = [
+    searchParams.get('metrosMin') ? Number(searchParams.get('metrosMin')) : metrosMin,
+    searchParams.get('metrosMax') ? Number(searchParams.get('metrosMax')) : metrosMax,
+  ]
+
+  const [precioSlider, setPrecioSlider] = useState<[number, number]>(initPrecio)
+  const [metrosSlider, setMetrosSlider] = useState<[number, number]>(initMetros)
+
+  // Sync sliders when URL changes externally (e.g. "Limpiar filtros")
+  useEffect(() => {
+    setPrecioSlider([
+      searchParams.get('precioMin') ? Number(searchParams.get('precioMin')) : precioMin,
+      searchParams.get('precioMax') ? Number(searchParams.get('precioMax')) : precioMax,
+    ])
+    setMetrosSlider([
+      searchParams.get('metrosMin') ? Number(searchParams.get('metrosMin')) : metrosMin,
+      searchParams.get('metrosMax') ? Number(searchParams.get('metrosMax')) : metrosMax,
+    ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams])
 
   const handleToggleActividad = (id: string) => {
     const next = currentActividadIds.includes(id)
@@ -134,76 +162,58 @@ export function FiltrosBusqueda({ filtrosDisponibles }: Props) {
       )}
 
       {/* Precio */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide">
-          Precio (COP)
-        </label>
-        <div className="flex gap-2 items-center">
-          <input
-            type="number"
-            defaultValue={currentPrecioMin}
-            placeholder="Mínimo"
-            min={0}
-            className="w-full py-2 px-3 rounded-lg border border-[#D9D9D9] text-sm text-[#2B2B2B] placeholder-[#6B6B6B] bg-white focus:outline-none focus:ring-2 focus:ring-[#4A7FB3] focus:border-transparent"
-            onBlur={(e) => {
-              const val = e.target.value
-              if (val !== currentPrecioMin) {
-                router.push(buildUrl({ precioMin: val || undefined }))
-              }
-            }}
-          />
-          <span className="text-[#6B6B6B] text-xs flex-shrink-0">—</span>
-          <input
-            type="number"
-            defaultValue={currentPrecioMax}
-            placeholder="Máximo"
-            min={0}
-            className="w-full py-2 px-3 rounded-lg border border-[#D9D9D9] text-sm text-[#2B2B2B] placeholder-[#6B6B6B] bg-white focus:outline-none focus:ring-2 focus:ring-[#4A7FB3] focus:border-transparent"
-            onBlur={(e) => {
-              const val = e.target.value
-              if (val !== currentPrecioMax) {
-                router.push(buildUrl({ precioMax: val || undefined }))
-              }
+      {precioMax > precioMin && (
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide">
+              Precio (COP)
+            </label>
+          </div>
+          <div className="flex items-center justify-between text-xs text-[#2B2B2B] font-medium">
+            <span>{formatPrecio(precioSlider[0])}</span>
+            <span>{formatPrecio(precioSlider[1])}</span>
+          </div>
+          <Slider
+            min={precioMin}
+            max={precioMax}
+            value={precioSlider}
+            onValueChange={(v) => setPrecioSlider(v as [number, number])}
+            onValueCommit={(v) => {
+              const [lo, hi] = v as [number, number]
+              router.push(buildUrl({
+                precioMin: lo > precioMin ? String(lo) : undefined,
+                precioMax: hi < precioMax ? String(hi) : undefined,
+              }))
             }}
           />
         </div>
-      </div>
+      )}
 
       {/* Metros */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide">
-          Superficie (m²)
-        </label>
-        <div className="flex gap-2 items-center">
-          <input
-            type="number"
-            defaultValue={currentMetrosMin}
-            placeholder="Mínimo"
-            min={0}
-            className="w-full py-2 px-3 rounded-lg border border-[#D9D9D9] text-sm text-[#2B2B2B] placeholder-[#6B6B6B] bg-white focus:outline-none focus:ring-2 focus:ring-[#4A7FB3] focus:border-transparent"
-            onBlur={(e) => {
-              const val = e.target.value
-              if (val !== currentMetrosMin) {
-                router.push(buildUrl({ metrosMin: val || undefined }))
-              }
-            }}
-          />
-          <span className="text-[#6B6B6B] text-xs flex-shrink-0">—</span>
-          <input
-            type="number"
-            defaultValue={currentMetrosMax}
-            placeholder="Máximo"
-            min={0}
-            className="w-full py-2 px-3 rounded-lg border border-[#D9D9D9] text-sm text-[#2B2B2B] placeholder-[#6B6B6B] bg-white focus:outline-none focus:ring-2 focus:ring-[#4A7FB3] focus:border-transparent"
-            onBlur={(e) => {
-              const val = e.target.value
-              if (val !== currentMetrosMax) {
-                router.push(buildUrl({ metrosMax: val || undefined }))
-              }
+      {metrosMax > metrosMin && (
+        <div className="flex flex-col gap-3">
+          <label className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide">
+            Superficie (m²)
+          </label>
+          <div className="flex items-center justify-between text-xs text-[#2B2B2B] font-medium">
+            <span>{formatMetros(metrosSlider[0])}</span>
+            <span>{formatMetros(metrosSlider[1])}</span>
+          </div>
+          <Slider
+            min={metrosMin}
+            max={metrosMax}
+            value={metrosSlider}
+            onValueChange={(v) => setMetrosSlider(v as [number, number])}
+            onValueCommit={(v) => {
+              const [lo, hi] = v as [number, number]
+              router.push(buildUrl({
+                metrosMin: lo > metrosMin ? String(lo) : undefined,
+                metrosMax: hi < metrosMax ? String(hi) : undefined,
+              }))
             }}
           />
         </div>
-      </div>
+      )}
 
       {/* Actividades */}
       {filtrosDisponibles.actividades.length > 0 && (
