@@ -178,7 +178,7 @@ export function FiltrosBusqueda({ filtrosDisponibles }: Props) {
             max={precioMax}
             value={precioSlider}
             onValueChange={(v) => setPrecioSlider(v as [number, number])}
-            onValueCommit={(v) => {
+            onValueCommitted={(v) => {
               const [lo, hi] = v as [number, number]
               router.push(buildUrl({
                 precioMin: lo > precioMin ? String(lo) : undefined,
@@ -204,7 +204,7 @@ export function FiltrosBusqueda({ filtrosDisponibles }: Props) {
             max={metrosMax}
             value={metrosSlider}
             onValueChange={(v) => setMetrosSlider(v as [number, number])}
-            onValueCommit={(v) => {
+            onValueCommitted={(v) => {
               const [lo, hi] = v as [number, number]
               router.push(buildUrl({
                 metrosMin: lo > metrosMin ? String(lo) : undefined,
