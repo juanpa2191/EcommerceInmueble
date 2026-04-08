@@ -2,8 +2,9 @@ import Link from 'next/link'
 import { PlusSquare, Pencil, Eye, MessageCircle } from 'lucide-react'
 import { getMisOfertas } from '@/lib/supabase/queries/empresa'
 import { formatPrecio } from '@/lib/utils/format'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 
 export default async function MisInmueblesPage() {
   const ofertas = await getMisOfertas()
@@ -18,12 +19,13 @@ export default async function MisInmueblesPage() {
             {ofertas.length} {ofertas.length === 1 ? 'oferta publicada' : 'ofertas publicadas'}
           </p>
         </div>
-        <Button asChild className="bg-[#1F3A5F] text-white hover:bg-[#2E5C8A]">
-          <Link href="/empresa/inmuebles/nuevo">
-            <PlusSquare className="size-4" />
-            Nueva oferta
-          </Link>
-        </Button>
+        <Link
+          href="/empresa/inmuebles/nuevo"
+          className={cn(buttonVariants(), 'bg-[#1F3A5F] text-white hover:bg-[#2E5C8A]')}
+        >
+          <PlusSquare className="size-4" />
+          Nueva oferta
+        </Link>
       </div>
 
       {/* Tabla */}
@@ -38,12 +40,13 @@ export default async function MisInmueblesPage() {
           <p className="mt-1 text-sm text-[#6B6B6B]">
             Crea tu primera oferta para que los compradores puedan encontrarte
           </p>
-          <Button asChild className="mt-6 bg-[#1F3A5F] text-white hover:bg-[#2E5C8A]">
-            <Link href="/empresa/inmuebles/nuevo">
-              <PlusSquare className="size-4" />
-              Crear primera oferta
-            </Link>
-          </Button>
+          <Link
+            href="/empresa/inmuebles/nuevo"
+            className={cn(buttonVariants(), 'mt-6 bg-[#1F3A5F] text-white hover:bg-[#2E5C8A]')}
+          >
+            <PlusSquare className="size-4" />
+            Crear primera oferta
+          </Link>
         </div>
       ) : (
         <div className="overflow-hidden rounded-xl border border-[#D9D9D9] bg-white">
@@ -94,12 +97,13 @@ export default async function MisInmueblesPage() {
                     <td className="px-4 py-3 text-[#6B6B6B]">{oferta.vistas}</td>
                     <td className="px-4 py-3 text-[#6B6B6B]">{oferta.clicks_whatsapp}</td>
                     <td className="px-4 py-3">
-                      <Button asChild size="sm" variant="outline">
-                        <Link href={`/empresa/inmuebles/${oferta.id}/editar`}>
-                          <Pencil className="size-3.5" />
-                          Editar
-                        </Link>
-                      </Button>
+                      <Link
+                        href={`/empresa/inmuebles/${oferta.id}/editar`}
+                        className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
+                      >
+                        <Pencil className="size-3.5" />
+                        Editar
+                      </Link>
                     </td>
                   </tr>
                 ))}
