@@ -164,28 +164,34 @@ export function FiltrosBusqueda({ filtrosDisponibles }: Props) {
       {/* Precio */}
       {precioMax > precioMin && (
         <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <label className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide">
-              Precio (COP)
-            </label>
-          </div>
-          <div className="flex items-center justify-between text-xs text-[#2B2B2B] font-medium">
-            <span>{formatPrecio(precioSlider[0])}</span>
-            <span>{formatPrecio(precioSlider[1])}</span>
-          </div>
-          <Slider
-            min={precioMin}
-            max={precioMax}
-            value={precioSlider}
-            onValueChange={(v) => setPrecioSlider(v as [number, number])}
-            onValueCommitted={(v) => {
-              const [lo, hi] = v as [number, number]
-              router.push(buildUrl({
-                precioMin: lo > precioMin ? String(lo) : undefined,
-                precioMax: hi < precioMax ? String(hi) : undefined,
-              }))
-            }}
-          />
+          <label className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide">
+            Precio (COP)
+          </label>
+          {(() => {
+            const lo = Math.max(precioMin, Math.min(precioSlider[0], precioMax))
+            const hi = Math.max(precioMin, Math.min(precioSlider[1], precioMax))
+            return (
+              <>
+                <div className="flex items-center justify-between text-xs text-[#2B2B2B] font-medium">
+                  <span>{formatPrecio(lo)}</span>
+                  <span>{formatPrecio(hi)}</span>
+                </div>
+                <Slider
+                  min={precioMin}
+                  max={precioMax}
+                  value={[lo, hi]}
+                  onValueChange={(v) => setPrecioSlider(v as [number, number])}
+                  onValueCommitted={(v) => {
+                    const [a, b] = v as [number, number]
+                    router.push(buildUrl({
+                      precioMin: a > precioMin ? String(a) : undefined,
+                      precioMax: b < precioMax ? String(b) : undefined,
+                    }))
+                  }}
+                />
+              </>
+            )
+          })()}
         </div>
       )}
 
@@ -195,23 +201,31 @@ export function FiltrosBusqueda({ filtrosDisponibles }: Props) {
           <label className="text-xs font-medium text-[#6B6B6B] uppercase tracking-wide">
             Superficie (m²)
           </label>
-          <div className="flex items-center justify-between text-xs text-[#2B2B2B] font-medium">
-            <span>{formatMetros(metrosSlider[0])}</span>
-            <span>{formatMetros(metrosSlider[1])}</span>
-          </div>
-          <Slider
-            min={metrosMin}
-            max={metrosMax}
-            value={metrosSlider}
-            onValueChange={(v) => setMetrosSlider(v as [number, number])}
-            onValueCommitted={(v) => {
-              const [lo, hi] = v as [number, number]
-              router.push(buildUrl({
-                metrosMin: lo > metrosMin ? String(lo) : undefined,
-                metrosMax: hi < metrosMax ? String(hi) : undefined,
-              }))
-            }}
-          />
+          {(() => {
+            const lo = Math.max(metrosMin, Math.min(metrosSlider[0], metrosMax))
+            const hi = Math.max(metrosMin, Math.min(metrosSlider[1], metrosMax))
+            return (
+              <>
+                <div className="flex items-center justify-between text-xs text-[#2B2B2B] font-medium">
+                  <span>{formatMetros(lo)}</span>
+                  <span>{formatMetros(hi)}</span>
+                </div>
+                <Slider
+                  min={metrosMin}
+                  max={metrosMax}
+                  value={[lo, hi]}
+                  onValueChange={(v) => setMetrosSlider(v as [number, number])}
+                  onValueCommitted={(v) => {
+                    const [a, b] = v as [number, number]
+                    router.push(buildUrl({
+                      metrosMin: a > metrosMin ? String(a) : undefined,
+                      metrosMax: b < metrosMax ? String(b) : undefined,
+                    }))
+                  }}
+                />
+              </>
+            )
+          })()}
         </div>
       )}
 
